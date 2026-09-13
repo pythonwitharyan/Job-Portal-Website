@@ -1,0 +1,858 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>JobFinder - Job Portal</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            background-color: #1d3557;
+            color: white;
+
+            padding: 18px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .navbar a:hover {
+            color: #a8dadc;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #457b9d,
+                #1d3557
+            );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 70px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            max-width: 900px;
+            margin: auto;
+
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input,
+        .search-box select {
+
+            flex: 1;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 8px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box button {
+
+            padding: 15px 25px;
+
+            border: none;
+            border-radius: 8px;
+
+            background-color: #e63946;
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #c92f3b;
+        }
+
+
+        /* JOB SECTION */
+
+        .jobs-section {
+
+            width: 85%;
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+        .section-title {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            color: #1d3557;
+        }
+
+        #jobCount {
+            color: #666;
+        }
+
+
+        /* JOB CARDS */
+
+        .job-container {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .job-card {
+
+            background-color: white;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .job-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 0, 0, 0.15);
+        }
+
+        .job-card h3 {
+
+            color: #1d3557;
+
+            margin-bottom: 12px;
+        }
+
+        .company {
+
+            color: #457b9d;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .details {
+
+            color: #666;
+
+            line-height: 1.8;
+
+            margin-bottom: 15px;
+        }
+
+        .job-card button {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background-color: #1d3557;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .job-card button:hover {
+            background-color: #457b9d;
+        }
+
+
+        /* NO JOB */
+
+        .no-job {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #777;
+
+            display: none;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background-color: #1d3557;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 50px;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .job-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .navbar a {
+
+                margin: 0 8px;
+            }
+
+            .hero h1 {
+
+                font-size: 32px;
+            }
+
+            .search-box {
+
+                flex-direction: column;
+            }
+
+            .job-container {
+
+                grid-template-columns: 1fr;
+            }
+
+            .jobs-section {
+
+                width: 90%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            💼 JobFinder
+        </div>
+
+        <div>
+
+            <a href="#">
+                Home
+            </a>
+
+            <a href="#jobs">
+                Jobs
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            Find Your Dream Job
+        </h1>
+
+        <p>
+            Search thousands of jobs and start
+            your career today.
+        </p>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Job title or keyword..."
+            >
+
+
+            <select id="locationFilter">
+
+                <option value="all">
+                    All Locations
+                </option>
+
+                <option value="Delhi">
+                    Delhi
+                </option>
+
+                <option value="Noida">
+                    Noida
+                </option>
+
+                <option value="Bangalore">
+                    Bangalore
+                </option>
+
+                <option value="Mumbai">
+                    Mumbai
+                </option>
+
+            </select>
+
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="Web Development">
+                    Web Development
+                </option>
+
+                <option value="Python">
+                    Python
+                </option>
+
+                <option value="Java">
+                    Java
+                </option>
+
+                <option value="Design">
+                    Design
+                </option>
+
+            </select>
+
+
+            <button onclick="searchJobs()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- JOBS -->
+
+    <section class="jobs-section"
+             id="jobs">
+
+        <div class="section-title">
+
+            <h2>
+                Latest Jobs
+            </h2>
+
+            <p id="jobCount">
+                6 Jobs Found
+            </p>
+
+        </div>
+
+
+        <div class="job-container"
+             id="jobContainer">
+
+
+            <!-- JOB 1 -->
+
+            <div class="job-card"
+                 data-title="Frontend Developer"
+                 data-location="Noida"
+                 data-category="Web Development">
+
+                <h3>
+                    Frontend Developer
+                </h3>
+
+                <p class="company">
+                    TechSolutions Pvt. Ltd.
+                </p>
+
+                <p class="details">
+
+                    📍 Noida
+                    <br>
+
+                    💰 ₹4 - ₹7 LPA
+                    <br>
+
+                    💻 Full Time
+                    <br>
+
+                    🏷️ Web Development
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+
+            <!-- JOB 2 -->
+
+            <div class="job-card"
+                 data-title="Python Developer"
+                 data-location="Delhi"
+                 data-category="Python">
+
+                <h3>
+                    Python Developer
+                </h3>
+
+                <p class="company">
+                    CodeWorks India
+                </p>
+
+                <p class="details">
+
+                    📍 Delhi
+                    <br>
+
+                    💰 ₹5 - ₹8 LPA
+                    <br>
+
+                    💻 Full Time
+                    <br>
+
+                    🏷️ Python
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+
+            <!-- JOB 3 -->
+
+            <div class="job-card"
+                 data-title="Java Developer"
+                 data-location="Bangalore"
+                 data-category="Java">
+
+                <h3>
+                    Java Developer
+                </h3>
+
+                <p class="company">
+                    Infosys Technologies
+                </p>
+
+                <p class="details">
+
+                    📍 Bangalore
+                    <br>
+
+                    💰 ₹6 - ₹10 LPA
+                    <br>
+
+                    💻 Full Time
+                    <br>
+
+                    🏷️ Java
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+
+            <!-- JOB 4 -->
+
+            <div class="job-card"
+                 data-title="UI UX Designer"
+                 data-location="Mumbai"
+                 data-category="Design">
+
+                <h3>
+                    UI/UX Designer
+                </h3>
+
+                <p class="company">
+                    Creative Studio
+                </p>
+
+                <p class="details">
+
+                    📍 Mumbai
+                    <br>
+
+                    💰 ₹4 - ₹6 LPA
+                    <br>
+
+                    💻 Full Time
+                    <br>
+
+                    🏷️ Design
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+
+            <!-- JOB 5 -->
+
+            <div class="job-card"
+                 data-title="Web Developer"
+                 data-location="Delhi"
+                 data-category="Web Development">
+
+                <h3>
+                    Web Developer
+                </h3>
+
+                <p class="company">
+                    WebTech Solutions
+                </p>
+
+                <p class="details">
+
+                    📍 Delhi
+                    <br>
+
+                    💰 ₹3 - ₹6 LPA
+                    <br>
+
+                    💻 Full Time
+                    <br>
+
+                    🏷️ Web Development
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+
+            <!-- JOB 6 -->
+
+            <div class="job-card"
+                 data-title="Python Intern"
+                 data-location="Noida"
+                 data-category="Python">
+
+                <h3>
+                    Python Intern
+                </h3>
+
+                <p class="company">
+                    StartupHub
+                </p>
+
+                <p class="details">
+
+                    📍 Noida
+                    <br>
+
+                    💰 ₹15K - ₹25K / Month
+                    <br>
+
+                    💻 Internship
+                    <br>
+
+                    🏷️ Python
+
+                </p>
+
+                <button onclick="applyJob()">
+                    Apply Now
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="no-job"
+             id="noJob">
+
+            <h3>
+                No Jobs Found 😔
+            </h3>
+
+            <p>
+                Try another keyword or filter.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 JobFinder | Built with
+            HTML, CSS & JavaScript
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function searchJobs() {
+
+            let search =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+
+            let location =
+                document
+                .getElementById("locationFilter")
+                .value;
+
+
+            let category =
+                document
+                .getElementById("categoryFilter")
+                .value;
+
+
+            let jobs =
+                document
+                .querySelectorAll(".job-card");
+
+
+            let count = 0;
+
+
+            jobs.forEach(function(job) {
+
+                let title =
+                    job
+                    .getAttribute("data-title")
+                    .toLowerCase();
+
+
+                let jobLocation =
+                    job
+                    .getAttribute("data-location");
+
+
+                let jobCategory =
+                    job
+                    .getAttribute("data-category");
+
+
+                let searchMatch =
+                    title.includes(search);
+
+
+                let locationMatch =
+                    location === "all" ||
+                    jobLocation === location;
+
+
+                let categoryMatch =
+                    category === "all" ||
+                    jobCategory === category;
+
+
+                if (
+                    searchMatch &&
+                    locationMatch &&
+                    categoryMatch
+                ) {
+
+                    job.style.display = "block";
+
+                    count++;
+
+                }
+
+                else {
+
+                    job.style.display = "none";
+
+                }
+
+            });
+
+
+            document
+                .getElementById("jobCount")
+                .innerText =
+                count + " Jobs Found";
+
+
+            if (count === 0) {
+
+                document
+                    .getElementById("noJob")
+                    .style.display = "block";
+
+            }
+
+            else {
+
+                document
+                    .getElementById("noJob")
+                    .style.display = "none";
+
+            }
+
+        }
+
+
+        function applyJob() {
+
+            alert(
+                "Application submitted successfully! 🚀"
+            );
+
+        }
+
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "keyup",
+                searchJobs
+            );
+
+    </script>
+
+
+</body>
+
+</html>
+```
